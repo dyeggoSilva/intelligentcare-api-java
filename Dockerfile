@@ -11,7 +11,5 @@ FROM openjdk:17-jdk-slim
 
 EXPOSE 8081
 
-COPY --from=build / target/apiIntelligentcare-0.0.1-SNAPSHOT.jar
-
-ENTRYPOINT ["java","-jar", "apiIntelligentcare-0.0.1-SNAPSHOT.jar"]
+RUN java -jar target/apiIntelligentcare-0.0.1-SNAPSHOT.jar
 
