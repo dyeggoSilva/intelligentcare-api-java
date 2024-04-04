@@ -11,7 +11,8 @@ FROM openjdk:17-jdk-slim
 
 EXPOSE 8081
 
-COPY --from=build / target/apiIntelligentcare-0.0.1-SNAPSHOT.jar
+ONBUILD ADD /intelligentcare-api-java/target/apiIntelligentcare-0.0.1-SNAPSHOT.jar app.jar
 
-ENTRYPOINT ["java","-jar", "apiIntelligentcare-0.0.1-SNAPSHOT.jar"]
+CMD ["java","-jar","/app.jar"]
+
 
