@@ -1,18 +1,10 @@
-FROM ubuntu:latest AS build
-
-RUN apt-get update
-RUN apt-get install openjdk-17-jdk -y
+FROM maven:3.8.4-amazoncorretto-17 as build
+WORKDIR /app
 COPY . .
+RUN mvn clean package -X -DskipTests
 
-RUN apt-get install maven -y
-RUN mvn clean install
+FROM openjdk:17-ea-10-jdk-slim
+WORKDIR /app
+COPY --from=build ./app/target/*.jar ./intelligentcare.jar
 
-FROM openjdk:17-jdk-slim
-
-EXPOSE 8081
-
-ONBUILD ADD /intelligentcare-api-java/target/apiIntelligentcare-0.0.1-SNAPSHOT.jar app.jar
-
-CMD ["java","-jar","/app.jar"]
-
-
+ENTRYPOINT java -jar intelligentcare.jar
