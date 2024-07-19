@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
+@CrossOrigin(origins = "*")
 public class CursosController {
 
     @Autowired
@@ -22,7 +23,7 @@ public class CursosController {
         return cursosService.listId(id);
     }
 
-    @PostMapping("/add-curso")
+    @PostMapping("/cursos/add")
     public Object cadastroCurso(@RequestBody Cursos curso){
         return cursosService.saveCurso(curso);
     }
